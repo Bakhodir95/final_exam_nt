@@ -1,11 +1,33 @@
 import 'package:flutter/foundation.dart';
 
 class Expenses {
+  String category;
   DateTime date;
-  String title;
+  String comment;
   num amount;
 
-  Expenses({required this.date, required this.amount, required this.title});
-}
+  Expenses({
+    required this.date,
+    required this.comment,
+    required this.category,
+    required this.amount,
+  });
 
-factory Expenses.fromMAp(Map<String,dynamic> map); 
+  factory Expenses.fromMap(Map<String, dynamic> map) {
+    return Expenses(
+      date: map['date'],
+      amount: map['amount'],
+      comment: map['comment'],
+      category: map['category'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'date': date,
+      'comment': comment,
+      'amount': amount,
+      'category': category,
+    };
+  }
+}

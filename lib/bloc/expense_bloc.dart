@@ -1,3 +1,4 @@
+
 import 'package:final_exam_nt/bloc/expense_event.dart';
 import 'package:final_exam_nt/bloc/expense_state.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ExpanseBloc extends Bloc<ExpenseEvent, ExpenseState> {
   final DatabaseHelper databaseHelper;
 
-  ExpanseBloc(this.databaseHelper) : super(ExpanseLoas()) {
+  ExpanseBloc(this.databaseHelper) : super(TaskLoading()) {
     on<LoadTasks>((event, emit) async {
       emit(TaskLoading());
       try {

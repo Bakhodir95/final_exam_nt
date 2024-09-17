@@ -21,7 +21,7 @@ class _AddingIncomeScreenState extends State<AddingIncomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Income"),
+        title: const Text("Add Expensesa"),
         actions: [
           IconButton(
               onPressed: () {

@@ -2,7 +2,8 @@ import 'package:final_exam_nt/models/expense.dart';
 
 abstract class ExpenseState {}
 
-class LoadExpense extends ExpenseState {}
+class ExpanseLaoding extends ExpenseState {}
+class ExpanseLaoded extends ExpenseState {}
 
 class AddExpense extends ExpenseState {
   final Expenses expense;

@@ -15,6 +15,7 @@ class DbService {
   Future<void> _createDatabase(Database db, int version) async {
     await db.execute("""
       CREATE TABLE $_tableName(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         category TEXT NOT NUll, 
         title TEXT NOT NULL,
         amount REAR,
@@ -30,39 +31,39 @@ class DbService {
     return await openDatabase(path, version: 1, onCreate: _createDatabase);
   }
 
-  Future<Database> get database async {
-    if (_database != null) {
-      print("salom");
+  // Future<Database> get database async {
+  //   if (_database != null) {
+  //     print("salom");
 
-      return _database!;
-    } else {
-      _database = await _initialDatabase();
-      return _database!;
-    }
-  }
+  //     return _database!;
+  //   } else {
+  //     _database = await _initialDatabase();
+  //     return _database!;
+  //   }
+  // }
 
-  Future<List<Expenses>> getExpanses() async {
-    final db = await database;
-    final dbResponse = await db.rawQuery("SELECT * FROM $_tableName");
-    List<Expenses> expanses = dbResponse.isNotEmpty
-        ? dbResponse.map((e) => Expenses.fromMap(e)).toList()
-        : [];
-    return expanses;
-  }
+  // Future<List<Expenses>> getExpanses() async {
+  //   final db = await database;
+  //   final dbResponse = await db.rawQuery("SELECT * FROM $_tableName");
+  //   List<Expenses> expanses = dbResponse.isNotEmpty
+  //       ? dbResponse.map((e) => Expenses.fromMap(e)).toList()
+  //       : [];
+  //   return expanses;
+  // }
 
-  Future<void> addExpenses({required Expenses expanses}) async {
-    try {
-      final db = await database;
-      await db.insert(_tableName, {
-        'category': expanses.category,
-        'amount': expanses.amount,
-        'date': expanses.date,
-        'comment': expanses.comment,
-      });
-    } catch (e) {
-      if (kDebugMode) {
-        print("Error while adding a contact: $e");
-      }
-    }
-  }
+  // Future<void> addExpenses({required Expenses expanses}) async {
+  //   try {
+  //     final db = await database;
+  //     await db.insert(_tableName, {
+  //       'category': expanses.category,
+  //       'amount': expanses.amount,
+  //       'date': expanses.date,
+  //       'comment': expanses.comment,
+  //     });
+  //   } catch (e) {
+  //     if (kDebugMode) {
+  //       print("Error while adding a contact: $e");
+  //     }
+  //   }
+  // }
 }

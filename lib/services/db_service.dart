@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:final_exam_nt/models/expense.dart';
+import 'package:final_exam_nt/models/income.dart';
 
 class DbService {
   final String _tableName = "expenses";
@@ -14,10 +16,11 @@ class DbService {
   Future<void> _createDatabase(Database db, int version) async {
     await db.execute("""
       CREATE TABLE $_tableName(
-        category Text NOT NUll, 
+        category TEXT NOT NUll, 
         title TEXT NOT NULL,
         amount REAR,
-        date TEXT NOT NULL
+        date TEXT NOT NULL,
+        comment TEXT NOT NULL
       )
     """);
   }
@@ -30,6 +33,8 @@ class DbService {
 
   Future<Database> get database async {
     if (_database != null) {
+      print("salom");
+
       return _database!;
     } else {
       _database = await _initialDatabase();
@@ -37,62 +42,27 @@ class DbService {
     }
   }
 
-  Future<List<Expanses>> getExpanses() async {
+  Future<List<Expenses>> getExpanses() async {
     final db = await database;
     final dbResponse = await db.rawQuery("SELECT * FROM $_tableName");
-    List<Expanses> contacts = dbResponse.isNotEmpty
+    List<Expenses> expanses = dbResponse.isNotEmpty
         ? dbResponse.map((e) => getExpanses.fromJson(e)).toList()
         : [];
-    return contacts;
+    return expanses;
   }
 
-  Future<void> addContact({
-    required String title,
-    required String phoneNumber,
-  }) async {
+  Future<void> addExpenses({required Expenses expanses}) async {
     try {
       final db = await database;
       await db.insert(_tableName, {
-        'title': title,
-        'phoneNumber': phoneNumber,
+        'category': expanses.category,
+        'amount': expanses.amount,
+        'date': expanses.date,
+        'comment': expanses.comment,
       });
     } catch (e) {
       if (kDebugMode) {
         print("Error while adding a contact: $e");
-      }
-    }
-  }
-
-  Future<void> deleteContact(int id) async {
-    try {
-      final db = await database;
-      await db.delete(_tableName, where: "id = ?", whereArgs: [id]);
-    } catch (e) {
-      if (kDebugMode) {
-        print("Error while deleting contact: $e");
-      }
-    }
-  }
-
-  Future<void> editExpenses({
-    required int id,
-    required String newTitle,
-    required String newPhone,
-  }) async {
-    try {
-      final db = await database;
-      await db.update(
-        _tableName,
-        {
-          "title": newTitle,
-          "phoneNumber": newPhone,
-        },
-        where: 'id = ?',
-        whereArgs: [id],
-      );
-    } catch (e) {
-      if (kDebugMode) {
-        print("Error while editing a contact: $e");
       }
     }
   }

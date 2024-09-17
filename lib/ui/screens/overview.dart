@@ -1,4 +1,5 @@
 import 'package:final_exam_nt/models/expense.dart';
+import 'package:final_exam_nt/services/db_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,16 +11,21 @@ class OverviewScreen extends StatefulWidget {
 }
 
 class _OverviewScreenState extends State<OverviewScreen> {
+  final textAmount = TextEditingController();
+  final textCategory = TextEditingController();
+  final textDate = TextEditingController();
+  final dbsercive = DbService();
+
+  void save() {}
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    // final expense = Expenses.fromMap(map);
+
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
-        title: Text("Overview"),
-        actions: [Icon(Icons.person)],
+        title: const Text("Overview"),
+        actions: [const Icon(Icons.person)],
       ),
       body: Column(
         children: [
@@ -35,18 +41,19 @@ class _OverviewScreenState extends State<OverviewScreen> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text("Total Salary \$\$\$"),
+                            title: const Text("Total Salary \$\$\$"),
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 TextField(
+                                  controller: textCategory,
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(20)),
                                       label: const Text("Enter category")),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 TextField(
@@ -76,9 +83,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                 child: const Text("Cancel"),
                               ),
                               FilledButton(
-                                  onPressed: () {
-                                    
-                                  }, child: const Text("Add")),
+                                  onPressed: () {}, child: const Text("Add")),
                             ],
                             // title: Text("You have spent${expense.amount} "),
                           );
@@ -105,21 +110,153 @@ class _OverviewScreenState extends State<OverviewScreen> {
                   const SizedBox(
                     width: 15,
                   ),
-                  Container(
-                    width: screenWidth / 3,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white),
+                  InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("Total Salary \$\$\$"),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextField(
+                                  controller: textCategory,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      label: const Text("Enter category")),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextField(
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      label: const Text("Enter date")),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextField(
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      label: const Text("Enter amount")),
+                                ),
+                              ],
+                            ),
+                            actions: [
+                              OutlinedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("Cancel"),
+                              ),
+                              FilledButton(
+                                  onPressed: () {}, child: const Text("Add")),
+                            ],
+                            // title: Text("You have spent${expense.amount} "),
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      width: screenWidth / 4,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white),
+                      child: Column(
+                        children: [
+                          Icon(Icons.account_balance_wallet_outlined),
+                          Text("Total Salary"),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text("data")
+                        ],
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     width: 15,
                   ),
-                  Container(
-                    width: screenWidth / 4,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white),
-                  )
+                  InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("Total Salary \$\$\$"),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextField(
+                                  controller: textCategory,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      label: const Text("Enter category")),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextField(
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      label: const Text("Enter date")),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextField(
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      label: const Text("Enter amount")),
+                                ),
+                              ],
+                            ),
+                            actions: [
+                              OutlinedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("Cancel"),
+                              ),
+                              FilledButton(
+                                  onPressed: () {}, child: const Text("Add")),
+                            ],
+                            // title: Text("You have spent${expense.amount} "),
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      width: screenWidth / 4,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white),
+                      child: Column(
+                        children: [
+                          Icon(Icons.account_balance_wallet_outlined),
+                          Text("Total Salary"),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text("data")
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

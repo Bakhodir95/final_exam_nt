@@ -14,7 +14,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
   final textAmount = TextEditingController();
   final textCategory = TextEditingController();
   final textDate = TextEditingController();
-  final dbsercive = DbService();
+  // final dbsercive = DbService();
 
   void save() {}
   @override
@@ -91,7 +91,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                       );
                     },
                     child: Container(
-                      width: screenWidth / 4,
+                      width: screenWidth / 3,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.white),
@@ -116,7 +116,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: const Text("Total Salary \$\$\$"),
+                            title: const Text("Total Expenses \$\$\$"),
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -166,14 +166,14 @@ class _OverviewScreenState extends State<OverviewScreen> {
                       );
                     },
                     child: Container(
-                      width: screenWidth / 4,
+                      width: screenWidth / 3,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.white),
                       child: Column(
                         children: [
                           Icon(Icons.account_balance_wallet_outlined),
-                          Text("Total Salary"),
+                          Text("Monthly Income"),
                           SizedBox(
                             height: 20,
                           ),
@@ -191,7 +191,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: const Text("Total Salary \$\$\$"),
+                            title: const Text("Total Expenses \$\$\$"),
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -235,20 +235,19 @@ class _OverviewScreenState extends State<OverviewScreen> {
                               FilledButton(
                                   onPressed: () {}, child: const Text("Add")),
                             ],
-                            // title: Text("You have spent${expense.amount} "),
                           );
                         },
                       );
                     },
                     child: Container(
-                      width: screenWidth / 4,
+                      width: screenWidth / 3,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.white),
                       child: Column(
                         children: [
                           Icon(Icons.account_balance_wallet_outlined),
-                          Text("Total Salary"),
+                          Text("Total Expanses"),
                           SizedBox(
                             height: 20,
                           ),
@@ -260,12 +259,6 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 ],
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Latest Entries"),
-            ],
           ),
         ],
       ),

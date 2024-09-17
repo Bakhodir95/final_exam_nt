@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:final_exam_nt/models/expense.dart';
-import 'package:final_exam_nt/models/income.dart';
 
 class DbService {
   final String _tableName = "expenses";
@@ -46,7 +45,7 @@ class DbService {
     final db = await database;
     final dbResponse = await db.rawQuery("SELECT * FROM $_tableName");
     List<Expenses> expanses = dbResponse.isNotEmpty
-        ? dbResponse.map((e) => getExpanses.fromJson(e)).toList()
+        ? dbResponse.map((e) => Expenses.fromMap(e)).toList()
         : [];
     return expanses;
   }
